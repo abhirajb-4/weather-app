@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Weather App</h1>
+        <a href="/settings" class="settings-btn">Settings</a>
+    </nav>
+
+    <div class="container">
+        {% for data in weather_data %}
+
+        <div class="container-item">
+            <h1>{{ data.city }}</h1>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Condition</th>
+                        <td>{{ data.main_weather }}</td>
+                    </tr>
+                    <tr>
+                        <th>Temperature</th>
+                        <td>{{ data.temperature }} °C</td>
+                    </tr>
+                    <tr>
+                        <th>Feels Like</th>
+                        <td>{{ data.feels_like }} °C</td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td>{{ data.date }}</td>
+                    </tr>
+                    <tr>
+                        <th>Time</th>
+                        <td>{{ data.time }}</td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+            <a class="view-btn" href="/city?city={{ data.city }}">
+                view
+            </a>
+        </div>
+
+        {% endfor %}
+    </div>
+    
+</body>
+</html>

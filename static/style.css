@@ -1,0 +1,112 @@
+*{
+    margin:0px;
+    padding:0px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.navbar{
+    height:70px;
+    width: 100%;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(36, 36, 247);
+}
+.navbar h1{
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    margin: 0px;
+}
+
+.settings-btn {
+    margin-right: 15px;
+    color: rgb(12, 30, 226);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    transition: background-color 0.3s, border-color 0.3s;
+    background-color: white;
+}
+.container{
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    padding: 20px;
+    gap: 20px; 
+}
+.container-item{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    width: 400px;
+    margin:10px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+}
+.container-item h1{
+    color: rgb(245, 16, 16);
+    text-align: center;
+    font-size: 25px;
+}
+.container-item table{
+    background-color: white;
+    width:100%;
+}
+table th{
+    text-align: left;
+}
+
+.view-btn{
+    cursor: pointer;
+    margin-top: 8px;
+    background-color: blue;
+    color: white;
+    border-radius: 8px;
+    padding: 8px 20px;
+    text-align: center; 
+    text-decoration: none; 
+    
+}
+
+/* city page */
+.city-container{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+}
+.city-left{
+    width: 50%;
+    background-color: rgb(255, 255, 255);
+    padding: 15px   ;
+    margin: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+}
+.city-right{
+    width: 50%;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.city-left table{
+    width: 100%;
+}
+.city-left table th{
+    text-align: left;
+    font-size: large;
+}
+.city-left table tr{
+    padding: 10px;
+}
+.city-left table td{
+    padding: 10px;
+}
+
