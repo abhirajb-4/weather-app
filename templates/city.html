@@ -6,6 +6,24 @@
     <title> Weather Details</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
+<style>
+    .circle-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .circle-text {
+        position: absolute;
+        font-size: 24px;
+        font-weight: bold;
+        color: #4caf50;
+    }
+</style>
 <body>
     <nav class="navbar">
         <h1>Weather App</h1>
@@ -56,10 +74,38 @@
 
         </div>
         <div class="city-right">
-            cicular bar
+            <input type="hidden" id="hidden_value1" value="{{ weather.temperature}}">
+            <input type="hidden" id="hidden_value2" value="{{ weather.feels_like}}">
+            <div class="upper">
+                <h3>Temperature </h3>
+                <div class="circle-container" id="progress-circle1">
+                    <div class="circle-text">{{ weather.temperature }}%</div>
+                </div>
+            </div>
+            <div class="upper">
+                <h3>Feels LIke</h3>
+                <div class="circle-container" id="progress-circle2">
+                    <div class="circle-text">{{ weather.feels_like }}%</div>
+                </div>
+            </div>
+            </div>
         </div>
     </div>
-    <h4>Dominant weather :{{weather.dominant}}</h4>
-    
+    <center>
+    <h4>Dominant weather :{{weather.dominant}}</h4></center>
+    <script>
+        // Get the value from the hidden input
+        let hiddenValue1 = document.getElementById('hidden_value1').value;
+        let hiddenValue2 = document.getElementById('hidden_value2').value;
+
+        // Use the hidden value to set the background dynamically
+        document.getElementById('progress-circle1').style.background = 
+            `conic-gradient(#4caf50 ${hiddenValue1}%, #ddd ${hiddenValue1}%`;
+
+            document.getElementById('progress-circle2').style.background = 
+            `conic-gradient(#4caf50 ${hiddenValue2}%, #ddd ${hiddenValue2}%`;
+
+        console.log(`Hidden value used: ${hiddenValue}`);  // Debugging line to verify the value
+    </script>
 </body>
 </html>
