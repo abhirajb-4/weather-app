@@ -27,15 +27,24 @@ def init_db():
             time DATETIME
         )
     """)
-    
+    #Create settings table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS settings (
             id INTEGER PRIMARY KEY,
             interval INTEGER
         )
     """)
+
+    #Create threshold temperature
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS temperature (
+            id INTEGER PRIMARY KEY,
+            threshold INTEGER
+        )
+    """)
     
     cursor.execute("INSERT OR IGNORE INTO settings (id, interval) VALUES (1, 600)")  # Default 10 minutes
+    cursor.execute("INSERT OR IGNORE INTO temperature (id, threshold) VALUES (1, 40)")
     conn.commit()
     conn.close()
 
@@ -104,11 +113,14 @@ def index():
         cursor.execute("SELECT interval FROM settings WHERE id = 1")
         current_interval = cursor.fetchone()[0]
 
+        cursor.execute("SELECT threshold FROM temperature WHERE id = 1")
+        threshold = cursor.fetchone()[0]
+
     # Ensure latest_weather_data is populated
     if not latest_weather_data:
         latest_weather_data = fetch_weather_data_for_cities()
 
-    return render_template('index.html', weather_data=latest_weather_data, current_interval=current_interval)
+    return render_template('index.html', weather_data=latest_weather_data, current_interval=current_interval,threshold=threshold)
 
 @app.route('/city')
 def city_weather():
@@ -177,8 +189,10 @@ def settings():
 
     if request.method == 'POST':
         new_interval = request.form.get('interval', type=int)
+        new_threshold = request.form.get('threshold', type=int)
         if new_interval is not None:
             cursor.execute("UPDATE settings SET interval = ? WHERE id = 1", (new_interval,))
+            cursor.execute("UPDATE temperature SET threshold = ? WHERE id = 1", (new_threshold,))
             conn.commit()
             update_status = 'success'
         else:
@@ -187,10 +201,13 @@ def settings():
     cursor.execute("SELECT interval FROM settings WHERE id = 1")
     current_interval = cursor.fetchone()[0]
 
+    cursor.execute("SELECT threshold FROM temperature WHERE id = 1")
+    current_threshold = cursor.fetchone()[0]
+
     cursor.close()
     conn.close()
 
-    return render_template('settings.html', current_interval=current_interval, update_status=update_status)
+    return render_template('settings.html', current_interval=current_interval, update_status=update_status,current_threshold=current_threshold)
 
 if __name__ == '__main__':
     init_db()  # Initialize the database

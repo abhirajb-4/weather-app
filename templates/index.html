@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="../static/style.css">
     <!--  -->
     <meta http-equiv="refresh" content="{{ current_interval }}">
-
+    <style>
+        /* Define a CSS class for high temperature */
+        .high-temperature {
+            background-color: rgba(242, 9, 9, 0.3); /* Light red background */
+        }
+    </style>
     
 </head>
 <body>
@@ -19,7 +24,7 @@
     <div class="container">
         {% for data in weather_data %}
 
-        <div class="container-item">
+        <div class="container-item" id="item-{{ loop.index }}">
             <h1>{{ data.city }}</h1>
             <table>
                 <tbody>
@@ -50,6 +55,25 @@
                 view
             </a>
         </div>
+        <!-- Hidden inputs to store the threshold, temperature, and item id values -->
+        <input type="hidden" class="threshold" value="{{ threshold }}">
+        <input type="hidden" class="temperature" value="{{ data.temperature }}">
+        <input type="hidden" class="item-id" value="item-{{ loop.index }}">
+
+        <script>
+            // Get the hidden threshold, temperature, and item id values
+            const threshold = parseFloat(document.querySelector('.threshold').value);
+            const currentTemperature = parseFloat(document.querySelector('.temperature').value);
+            const itemId = document.querySelector('.item-id').value;
+
+            // Get the corresponding item element by its ID
+            const itemElement = document.getElementById(itemId);
+
+            // Change background color if temperature exceeds threshold
+            if (currentTemperature > threshold) {
+                itemElement.classList.add('high-temperature');
+            }
+        </script>
 
         {% endfor %}
     </div>
