@@ -39,7 +39,7 @@ def init_db():
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS temperature (
             id INTEGER PRIMARY KEY,
-            threshold INTEGER
+            threshold REAL
         )
     """)
     
@@ -120,7 +120,25 @@ def index():
     if not latest_weather_data:
         latest_weather_data = fetch_weather_data_for_cities()
 
-    return render_template('index.html', weather_data=latest_weather_data, current_interval=current_interval,threshold=threshold)
+    # Traverse through the latest_weather_data and create a dict of cities with temperatures above threshold
+    high_temp_cities = {}
+    for data in latest_weather_data:
+        if data['temperature'] > threshold:
+            
+            high_temp_cities[data['city']] = data['temperature']
+
+    # Get the count of cities exceeding the threshold
+    high_temp_count = len(high_temp_cities)
+    print(high_temp_cities)
+    print(high_temp_count)
+
+
+    return render_template('index.html', weather_data=latest_weather_data, 
+                           current_interval=current_interval,
+                           threshold=threshold,
+                           high_temp_count = high_temp_count,
+                           high_temp_cities = high_temp_cities
+                           )
 
 @app.route('/city')
 def city_weather():
@@ -189,7 +207,7 @@ def settings():
 
     if request.method == 'POST':
         new_interval = request.form.get('interval', type=int)
-        new_threshold = request.form.get('threshold', type=int)
+        new_threshold = request.form.get('threshold', type=float)
         if new_interval is not None:
             cursor.execute("UPDATE settings SET interval = ? WHERE id = 1", (new_interval,))
             cursor.execute("UPDATE temperature SET threshold = ? WHERE id = 1", (new_threshold,))

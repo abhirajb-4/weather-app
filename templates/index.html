@@ -10,7 +10,7 @@
     <style>
         /* Define a CSS class for high temperature */
         .high-temperature {
-            background-color: rgba(242, 9, 9, 0.3); /* Light red background */
+            background-color: rgba(111, 86, 86, 0.444); /* Light red background */
         }
     </style>
     
@@ -18,13 +18,32 @@
 <body>
     <nav class="navbar">
         <h1>Weather App</h1>
+        <!-- Display alert badge if alert_count > 1 -->
+
+        <!-- Dropdown for alerts -->
+        <div class="dropdown">
+            <a class="alert-badge" href="#">Alerts ({{ high_temp_count }})</a>
+            <div class="dropdown-content">
+                {% if high_temp_cities %}
+                    {% for city, temp in high_temp_cities.items() %}
+                        <a>{{ city }}: {{ temp }}°C</a>
+                    {% endfor %}
+                {% else %}
+                    <a >No alerts</a>
+                {% endif %}
+            </div>
+        </div>
+        
         <a href="/settings" class="settings-btn">Settings</a>
     </nav>
 
     <div class="container">
         {% for data in weather_data %}
 
-        <div class="container-item" id="item-{{ loop.index }}">
+        <div class="container-item 
+            {% if data.city in high_temp_cities %}
+            high-temperature
+            {% endif %}" >
             <h1>{{ data.city }}</h1>
             <table>
                 <tbody>
@@ -55,26 +74,6 @@
                 view
             </a>
         </div>
-        <!-- Hidden inputs to store the threshold, temperature, and item id values -->
-        <input type="hidden" class="threshold" value="{{ threshold }}">
-        <input type="hidden" class="temperature" value="{{ data.temperature }}">
-        <input type="hidden" class="item-id" value="item-{{ loop.index }}">
-
-        <script>
-            // Get the hidden threshold, temperature, and item id values
-            const threshold = parseFloat(document.querySelector('.threshold').value);
-            const currentTemperature = parseFloat(document.querySelector('.temperature').value);
-            const itemId = document.querySelector('.item-id').value;
-
-            // Get the corresponding item element by its ID
-            const itemElement = document.getElementById(itemId);
-
-            // Change background color if temperature exceeds threshold
-            if (currentTemperature > threshold) {
-                itemElement.classList.add('high-temperature');
-            }
-        </script>
-
         {% endfor %}
     </div>
     
