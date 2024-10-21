@@ -9,7 +9,7 @@ This is an app that is built using flask framework for monitoring the weather of
 **Threading** : The data is fetched from operweather api at user defined intervals
 **Dominant weather** : Dominant weather of a city can be identified
 **Temperature data** : Different temperature calculations can be made
-**Alerts for temperatures**  : The User gets alerts by changing the background color of the container
+**Alerts for temperatures**  : The User gets alerts by changing the background color of the container and also with notifcation at homme screen.
 
 
 ## Project Structure
@@ -22,6 +22,12 @@ This is an app that is built using flask framework for monitoring the weather of
 - `requirements.txt`: Lists the dependencies.
 - `main.py`: The entry point of the application.
 - `README.md`: This documentation file.
+
+## Database
+
+**Settings table** : To store time interval for refresh
+**Weather table** : To store weather data
+**Temperature table**: To store threshold temperature value  
 
  ### Prerequisites
   - Python 3.6 or higher
