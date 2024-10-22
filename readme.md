@@ -5,11 +5,12 @@ This is an app that is built using flask framework for monitoring the weather of
 
 ## Features
 
-**Display weather** : Display weather of 5 cities
-**Threading** : The data is fetched from operweather api at user defined intervals
-**Dominant weather** : Dominant weather of a city can be identified
-**Temperature data** : Different temperature calculations can be made
-**Alerts for temperatures**  : The User gets alerts by changing the background color of the container and also with notifcation at homme screen.
+- **Display Weather**: Shows weather information for 5 cities.
+- **Threading**: Fetches data from the OpenWeather API at user-defined intervals.
+- **Dominant Weather**: Identifies the dominant weather condition in each city.
+- **Temperature Data**: Allows various temperature calculations.
+- **Temperature Alerts**: Notifies users with background color changes and home screen notifications for temperature alerts.
+
 
 
 ## Project Structure
